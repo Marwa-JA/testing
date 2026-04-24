@@ -1,0 +1,10 @@
+[allowlist]
+  description = """
+    Firebase web client config keys (apiKey, appId, etc.) are intentionally
+    public — they identify the Firebase project but grant no privileged access.
+    Access control is enforced by Firebase Security Rules on the server side.
+    These are safe to appear in client-side source code and git history.
+  """
+  paths = [
+    '''frontend/src/services/firebaseService\.js'''
+  ]

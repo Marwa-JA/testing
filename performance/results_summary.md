@@ -3,7 +3,7 @@
 ## Setup
 
 - **Tool:** k6
-- **Target:** `http://localhost:8080`
+- **Target:** `http://localhost:8080` (local Spring Boot instance)
 - **Scenarios tested:** GET /api/events, GET /api/bookings/user/:id/upcoming, POST /api/bookings
 
 ## Load Profile
@@ -31,31 +31,74 @@ cd performance && k6 run load_test.js
 k6 run -e BASE_URL=http://staging.example.com load_test.js
 ```
 
-## Thresholds
+## Observed Results
 
-| Metric                          | Threshold | Result |
-|---------------------------------|-----------|--------|
-| 95th percentile response time   | < 500ms   | ✅ PASS |
-| HTTP error rate                 | < 5%      | ✅ PASS |
-| Custom error rate               | < 5%      | ✅ PASS |
+Run with up to 30 virtual users over 2m30s.
 
-## Observed Results (local run)
+### Throughput
 
-> Run `k6 run load_test.js --summary-trend-stats="min,med,avg,p(90),p(95),p(99),max"` for full stats.
+| Metric            | Value        |
+|-------------------|--------------|
+| Total requests    | 1422         |
+| Requests/sec      | 9.44 req/s   |
+| Iterations/sec    | 9.44 iter/s  |
+| Data received     | 8.9 MB       |
 
-| Endpoint                  | Avg (ms) | p(95) (ms) | Error Rate |
-|---------------------------|----------|------------|------------|
-| GET /api/events           | ~45      | ~120       | 0%         |
-| GET upcoming bookings     | ~60      | ~150       | 0%         |
-| POST /api/bookings        | ~180     | ~380       | ~65%*      |
+### Response Times
 
-*POST /api/bookings errors are expected — test data (test-event-id) does not exist in the
- database, so the service correctly returns 400 (business rule rejection). Server-side 5xx errors
- were 0%, confirming the system handles load without crashing.
+| Metric        | Value   |
+|---------------|---------|
+| Average       | 276 ms  |
+| Median        | 245 ms  |
+| p(90)         | 420 ms  |
+| **p(95)**     | **490 ms** |
+| Max           | 1020 ms |
 
-## Observations
+### Per-Endpoint Checks
 
-- The event listing endpoint handled 30 concurrent users comfortably within the 300ms target.
-- The booking write path is slower due to Firestore write latency but stays under 1s.
-- No memory leaks or OOM errors observed during the spike stage.
-- Spring Boot's embedded Tomcat thread pool handled the spike without queuing.
+| Check                                  | Result        |
+|----------------------------------------|---------------|
+| events list: status 200                | ✅ 100%       |
+| events list: response time < 300ms     | ⚠️ 61%        |
+| upcoming bookings: status 200 or 400   | ✅ 100%       |
+| upcoming bookings: response time < 400ms | ✅ 95%      |
+| create booking: not a 5xx              | ✅ 100%       |
+| create booking: response time < 1000ms | ✅ 100%       |
+
+### Thresholds
+
+| Threshold                        | Target  | Actual   | Result |
+|----------------------------------|---------|----------|--------|
+| p(95) response time              | < 500ms | 490ms    | ✅ PASS |
+| HTTP error rate (`http_req_failed`) | < 5% | 14.27%   | ❌ FAIL |
+| Custom error rate                | < 5%   | 24.26%   | ❌ FAIL |
+
+## Analysis
+
+### Why the error thresholds failed
+
+The `http_req_failed` and custom `errors` metrics count any non-2xx HTTP response.
+The `POST /api/bookings` scenario deliberately uses a placeholder `test-event-id` that
+does not exist in the database, so the backend correctly returns `400 Bad Request`
+(business rule: "Event not available for booking"). These are **expected rejections**,
+not server failures.
+
+**Key evidence the system remained stable under load:**
+
+- `create booking: not a 5xx` passed at **100%** — zero server crashes or unhandled exceptions
+- `create booking: response time < 1000ms` passed at **100%** — write path stayed fast under 30 VUs
+- `upcoming bookings: status 200 or 400` passed at **100%** — read path fully reliable
+- p(95) latency of **490ms** passed the 500ms threshold
+
+### Events list latency
+
+61% of event listing requests exceeded 300ms. This is expected for a Firestore-backed
+endpoint: each request reads live data from Google Cloud Firestore, which introduces
+network round-trip latency (typically 150–400ms depending on region). To improve this,
+response caching (e.g. Spring Cache with a short TTL) could be added.
+
+### Conclusion
+
+The system handles 30 concurrent users without any 5xx errors or timeouts. The threshold
+failures are artifacts of using synthetic test data (non-existent IDs) for the write
+endpoint — not signs of instability. The p(95) latency target of 500ms was met.

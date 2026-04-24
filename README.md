@@ -33,6 +33,14 @@ Edit the file and replace every `YOUR_*` placeholder.
 
 Download your Firebase service account key from the Firebase Console and place it at this path.
 
+### 3. `frontend/.env`
+
+Copy the example and fill in your Firebase web config values:
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
 ---
 
 ## Running the Application
