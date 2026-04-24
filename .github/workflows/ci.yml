@@ -39,7 +39,7 @@ jobs:
 
       - name: Run tests with test profile
         working-directory: backend
-        run: ./mvnw test -Dspring.profiles.active=test
+        run: mvn test -Dspring.profiles.active=test
 
       - name: Upload test reports
         if: always()
