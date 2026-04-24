@@ -1,0 +1,224 @@
+/* ── PASSWORD FIELD FIXES ── */
+.pw-field.p-password.p-icon-field.p-icon-field-right {
+  width: 100%;
+}
+
+.pw-field.p-icon-field-right {
+  display: flex;
+  align-items: center;
+}
+
+.pw-field.p-icon-field-right .p-inputtext {
+  flex: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   SOFT UI + AURORA — PrimeReact Global Overrides
+   ═══════════════════════════════════════════════════ */
+
+/* ── MENUBAR ── */
+.p-menubar {
+  background: var(--glass-bg-strong) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: none !important;
+  border-bottom: 1px solid var(--soft-border) !important;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
+  padding: 0.5rem 1.5rem;
+}
+
+.p-menubar .p-menuitem-text {
+  font-weight: 500;
+}
+
+.p-menubar .p-menuitem:hover {
+  border-radius: var(--radius-sm);
+}
+
+/* ── CARDS ── */
+.p-card {
+  background: var(--soft-card) !important;
+  border: 1px solid var(--soft-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--soft-shadow) !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+  overflow: hidden;
+}
+
+.p-card:hover {
+  box-shadow: var(--soft-shadow-hover) !important;
+  transform: translateY(-2px);
+}
+
+/* Glass cards on aurora pages */
+.aurora-bg .p-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border) !important;
+}
+
+/* ── BUTTONS ── */
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
+  background: var(--accent-gradient) !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+  transition: all 0.25s ease !important;
+  font-weight: 600;
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):hover {
+  background: var(--accent-gradient-hover) !important;
+  box-shadow: var(--glow-purple) !important;
+  transform: translateY(-1px);
+}
+
+.p-button.p-button-outlined {
+  border-radius: var(--radius-sm) !important;
+  border-width: 1.5px !important;
+  font-weight: 500;
+  transition: all 0.25s ease !important;
+}
+
+.p-button.p-button-text {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 500;
+  transition: all 0.2s ease !important;
+}
+
+/* Severity button colors */
+.p-button.p-button-danger:not(.p-button-text):not(.p-button-outlined) {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.p-button.p-button-success:not(.p-button-text):not(.p-button-outlined) {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+}
+
+.p-button.p-button-warning:not(.p-button-text):not(.p-button-outlined) {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+}
+
+.p-button.p-button-secondary:not(.p-button-text):not(.p-button-outlined) {
+  background: linear-gradient(135deg, #6b7280, #4b5563) !important;
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.25);
+}
+
+.p-button.p-button-help:not(.p-button-text):not(.p-button-outlined) {
+  background: linear-gradient(135deg, #a855f7, #7c3aed) !important;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.25);
+}
+
+/* ── INPUTS ── */
+.p-inputtext,
+.p-dropdown,
+.p-calendar .p-inputtext,
+.p-inputnumber .p-inputtext,
+.p-inputtextarea {
+  border-radius: var(--radius-sm) !important;
+  border: 1.5px solid #e5e7eb !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-inputtext:enabled:focus {
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12) !important;
+}
+
+/* ── DIALOGS ── */
+.p-dialog {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--soft-shadow-lg), 0 0 60px rgba(99, 102, 241, 0.08) !important;
+  border: 1px solid var(--soft-border) !important;
+  overflow: hidden;
+}
+
+.p-dialog .p-dialog-header {
+  background: var(--accent-gradient) !important;
+  color: white !important;
+  border-bottom: none !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+  color: white !important;
+  font-weight: 600;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1.5rem !important;
+}
+
+/* ── TAGS ── */
+.p-tag {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.025em;
+}
+
+/* ── MENU POPUP ── */
+.p-menu {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--soft-shadow-lg) !important;
+  border: 1px solid var(--soft-border) !important;
+  overflow: hidden;
+}
+
+.p-menu .p-menuitem:hover .p-menuitem-content {
+  border-radius: var(--radius-sm);
+}
+
+/* ── AVATAR ── */
+.p-avatar {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+
+/* ── TOOLTIP ── */
+.p-tooltip .p-tooltip-text {
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--soft-shadow) !important;
+}
+
+/* ── DATATABLE ── */
+.p-datatable .p-datatable-header {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--soft-bg) !important;
+  font-weight: 600;
+}
+
+/* ── DIVIDER ── */
+.p-divider::before {
+  border-color: var(--soft-border) !important;
+}
+
+/* ── RATING ── */
+.p-rating .p-rating-item .p-rating-icon.p-rating-icon-active {
+  color: #f59e0b !important;
+}
+
+/* ── GRADIENT TEXT UTILITY ── */
+.gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

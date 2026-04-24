@@ -1,0 +1,16 @@
+spring.application.name=eventmarketplace
+
+# Mail (Mailgun or any SMTP provider)
+spring.mail.host=smtp.mailgun.org
+spring.mail.port=587
+spring.mail.username=YOUR_MAILGUN_USERNAME
+spring.mail.password=YOUR_MAILGUN_PASSWORD
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.from=YOUR_FROM_ADDRESS
+
+# Firebase
+firebase.storage.bucket=YOUR_FIREBASE_BUCKET
+
+# OpenRouter AI
+openrouter.api.key=YOUR_OPENROUTER_KEY

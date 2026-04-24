@@ -1,0 +1,27 @@
+# Credentials — NEVER commit these
+backend/src/main/resources/serviceAccountKey.json
+backend/src/main/resources/application.properties
+.env
+.env.*
+
+# Maven build output
+backend/target/
+backend/*.iml
+
+# Node / React
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.env.*
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# macOS
+.DS_Store
