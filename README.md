@@ -2,6 +2,10 @@
 
 A full-stack event booking platform built with Spring Boot (Java 21) and React 19.
 
+## Authors
+### Marwa Al Jaouni
+### Helpest Mohamad
+
 ## Prerequisites
 
 | Tool               | Version                    |
@@ -10,7 +14,7 @@ A full-stack event booking platform built with Spring Boot (Java 21) and React 1
 | Maven (via `mvnw`) | bundled                    |
 | Node.js            | 20+                        |
 | npm                | 10+                        |
-| k6                 | latest (`brew install k6`) |
+| k6                 | latest                     |
 
 ---
 
